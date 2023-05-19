@@ -1,8 +1,5 @@
-var can = document.createElement("canvas");
+var can = document.querySelector("canvas");
 var ctx = can.getContext("2d");
-
-var buf = document.querySelector("canvas");
-var bufCtx = buf.getContext("2d");
 
 var img = document.createElement("canvas");
 var imgCtx = img.getContext("2d");
@@ -26,9 +23,6 @@ function draw()
         can.width = Math.min(window.innerWidth, window.innerHeight);
         can.height = can.width;
 
-        buf.width = can.width;
-        buf.height = can.height;
-
         img.width = can.width / 2;
         img.height = can.height / 2;
     }
@@ -46,13 +40,15 @@ function draw()
     if (!paused)
         recurseDraw(0, 0, 1, -1);
 
-    bufCtx.drawImage(can, 0, 0, can.width, can.height);
-
     ctx.restore();
 
     ctx.fillStyle = "#fff";
     ctx.font = `${can.height / 30}px Consolas`;
     ctx.textAlign = "right";
+    ctx.strokeStyle = "#000";
+    ctx.lineWidth = 20;
+    ctx.strokeText(minutes + ":" + (video.currentTime % 60).toFixed(2).padStart(5, '0') + " / " + length + ":" + 
+    (video.duration % 60).toFixed(2), can.width / 60 * 59, can.height / 30);
     ctx.fillText(minutes + ":" + (video.currentTime % 60).toFixed(2).padStart(5, '0') + " / " + length + ":" + 
     (video.duration % 60).toFixed(2), can.width / 60 * 59, can.height / 30);
 
